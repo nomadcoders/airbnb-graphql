@@ -16,4 +16,4 @@ GraphQL API of the Airbnb Clone using Graphene GraphQL
 - [x] Create Account
 - [x] See My Profile
 - [x] Add Room to Favourites
-- [ ] Edit Profile
+- [x] Edit Profile

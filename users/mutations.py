@@ -66,3 +66,30 @@ class ToggleFavsMutation(graphene.Mutation):
             return ToggleFavsMutation(ok=True)
         except Room.DoesNotExist:
             return ToggleFavsMutation(ok=False, error="Room not found")
+
+
+class EditProfileMutation(graphene.Mutation):
+    class Arguments:
+        first_name = graphene.String()
+        last_name = graphene.String()
+        email = graphene.String()
+
+    ok = graphene.Boolean()
+    error = graphene.String()
+
+    def mutate(self, info, first_name=None, last_name=None, email=None):
+        user = info.context.user
+        if not user.is_authenticated:
+            raise Exception("You need to be logged in")
+        if first_name:
+            user.first_name = first_name
+        if last_name:
+            user.last_name = last_name
+        if email and email != user.email:
+            try:
+                User.objects.get(email=email)
+                return EditProfileMutation(ok=False, error="That email is taken")
+            except User.DoesNotExist:
+                user.email = email
+        user.save()
+        return EditProfileMutation(ok=True)
