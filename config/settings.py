@@ -132,3 +132,10 @@ MEDIA_URL = "/media/"
 # Auth
 
 AUTH_USER_MODEL = "users.User"
+
+
+# GraphQL
+
+GRAPHENE = {
+    "MIDDLEWARE": ("config.middlewares.JWTMiddleware",),
+}
