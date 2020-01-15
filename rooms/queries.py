@@ -3,7 +3,6 @@ from .types import RoomListResponse
 
 
 def resolve_rooms(root, info, page=1):
-    print(info.context.user)
     if page < 1:
         page = 1
     page_size = 5
